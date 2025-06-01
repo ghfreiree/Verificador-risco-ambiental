@@ -40,11 +40,11 @@ Relevo
 3 - Planalto (região alta)
 ''')
     while True:
-        relevo = int(input('Digite o número correspondente ao seu tipo de relevo: '))
-        if relevo in [1, 2, 3]:
+        relevo = input('Digite o número correspondente ao seu tipo de relevo: ')
+        if relevo in ['1', '2', '3']:
             break
         else:
-            print('Opção inválida. Por favor, escolha 1, 2 ou 3.')
+            print('\nOpção inválida. Por favor, escolha 1, 2 ou 3.\n')
     return relevo
 
 def precipitacao():
@@ -56,11 +56,11 @@ Precipitação
 3 - Muita chuva
 ''')
     while True:
-        precipitacao = input('Digite o número correspondente ao seu tipo de precipitação: ')
+        precipitacao = input('Digite o número correspondente à precipitação da sua região: ')
         if precipitacao in ['1', '2', '3']:
             break
         else:
-            print('Opção inválida. Por favor, escolha 1, 2 ou 3.')
+            print('\nOpção inválida. Por favor, escolha 1, 2 ou 3.\n')
     print('-------------------------------------------------------------------------')
     return precipitacao
 
@@ -76,7 +76,7 @@ Temperatura
         if temperatura in ['1', '2', '3']:
             break
         else:
-            print('Opção inválida. Por favor, escolha 1, 2 ou 3.')
+            print('\nOpção inválida. Por favor, escolha 1, 2 ou 3.\n')
     print('-------------------------------------------------------------------------')
     return temperatura
 
@@ -90,7 +90,7 @@ Arborização
         if arborizacao in ['1', '2']:
             break
         else:
-            print('Opção inválida. Por favor, escolha 1 ou 2.')
+            print('\nOpção inválida. Por favor, escolha 1 ou 2.\n')
     print('-------------------------------------------------------------------------')
     return arborizacao
 
@@ -114,6 +114,13 @@ def verif_enchente(nivelamento, chuva):
 
 def verif_deslizamento(nivelamento, chuva):
     if nivelamento == '1':
+        if chuva == '3':
+            return 'Baixo'
+        elif chuva == '2':
+            return 'Muito Baixo'
+        elif chuva == '1':
+            return 'Muito baixo'
+    elif nivelamento == '2':
         if chuva == '3':
             return 'Alto'
         elif chuva == '2':
@@ -168,18 +175,21 @@ def verif_queimadas(arvores, calor, chuva):
                 return 'Muito baixo'
 
 def enchente(risco_enchente):
-    print(f'\nO risco de enchente é na sua região é {risco_enchente}')
-    print('As enchentes são mais propensas a ocorrer em regiões de planície baixa, pois a água sempre tende a descer. Outro fator que contribui para o risco de enchente é a precipitação, pois quanto mais chuva, maior o risco de alagamento.')
-    print('Recomendações: É importante manter os bueiros limpos, evitar jogar lixo nas ruas e plantar árvores para ajudar a absorver a água da chuva. Além disso, é importante ter um plano de emergência caso você more em uma região de alto risco de enchentes.')
+    print('\n\nENCHENTES:')
+    print(f'\nO risco de enchente na sua região é *{risco_enchente}*')
+    print('\nAs enchentes são mais propensas a ocorrer em regiões de planície baixa, pois a água sempre tende a descer. Outro fator que contribui para o risco de enchente é a precipitação, pois quanto mais chuva, maior o risco de alagamento.')
+    print('\n- Recomendações: É importante manter os bueiros limpos, evitar jogar lixo nas ruas e plantar árvores para ajudar a absorver a água da chuva. Além disso, é importante ter um plano de emergência caso você more em uma região de alto risco de enchentes.')
 
 def deslizamento(risco_deslizamento):
-    print(f'\nO risco de deslizamento é na sua região é {risco_deslizamento}')
-    print('Os deslizamentos ocorrem geralmente em regiões de plano inclinado quando se tem muita chuva. Isso acontece porque a água da chuva causa a saturação e erosão do solo. Caso o solo dessa região não seja estável, ele acaba desmontando e causa o deslizamento das contruções instaladas sobre ele.')
-    print('Recomendações: Para evitar passar por deslizamentos, é importante evitar terrenos em regiões de solo instável e plano inclinado. ')
+    print('\n\nDESLIZAMENTOS:')
+    print(f'\nO risco de deslizamento na sua região é *{risco_deslizamento}*')
+    print('\nOs deslizamentos ocorrem geralmente em regiões de plano inclinado quando se tem muita chuva. Isso acontece porque a água da chuva causa a saturação e erosão do solo. Caso o solo dessa região não seja estável, ele acaba desmontando e causa o deslizamento das contruções instaladas sobre ele.')
+    print('\nRecomendações: Para evitar passar por deslizamentos, é importante evitar terrenos em regiões de solo instável e plano inclinado. ')
 
 def queimadas(risco_queimadas):
-    print(f'\nO risco de queimadas naturais na sua região é {risco_queimadas}')
-    print('Queimadas naturais são raras e ocorrem em condições específicas, como em regiões muito secas e quentes, onde há uma boa quantidade de vegetação para a chama se espalhar. Elas podem ser causadas também por raios ou outras fontes de ignição natural que são mais raras ainda de acontecer.')
+    print('\n\nQUEIMADAS NATURAIS:')
+    print(f'\nO risco de queimadas naturais na sua região é *{risco_queimadas}*')
+    print('\nQueimadas naturais são raras e ocorrem em condições específicas, como em regiões muito secas e quentes, onde há uma boa quantidade de vegetação para a chama se espalhar. Elas podem ser causadas também por raios ou outras fontes de ignição natural que são mais raras ainda de acontecer.')
 
 def main():
     print('*-Bem-vindo ao Sistema de Avaliação de Riscos Ambientais!-*')
@@ -194,8 +204,6 @@ def main():
     chuva = precipitacao()
     calor = temperatura()
     arvores = arborizacao()
-    print('\n-------------------------------------------------------------------------------------------------------------------------')
-
     risco_enchente = verif_enchente(nivelamento, chuva)
     risco_deslizamento = verif_deslizamento(nivelamento, chuva)
     risco_queimadas = verif_queimadas(arvores, calor, chuva)
@@ -203,5 +211,6 @@ def main():
     enchente(risco_enchente)
     deslizamento(risco_deslizamento)
     queimadas(risco_queimadas)
+    print('\n-------------------------------------------------------------------------------------------------------------------------')
 
 main()
